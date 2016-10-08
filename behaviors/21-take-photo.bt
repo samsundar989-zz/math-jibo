@@ -1,0 +1,489 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "asset-pack": "core",
+        "children": [
+            "8db6f060-1d44-481b-8df6-17b90470b7ea",
+            "7fb7c0c7-f9ee-4b7b-bc67-e73fccea30a7",
+            "f615089e-9b01-4ee7-8c27-1e6ee68c462c",
+            "009578b6-abf7-448a-9181-e619c976e7d5",
+            "fce4801b-b555-4ad4-8165-c3ba00d624d4",
+            "1dca292c-eca9-4318-b1dd-c70d9cd85f20",
+            "484b1902-60a8-453d-a77d-fcc2c395537d",
+            "bd833512-f00f-4033-ab0f-0b728a888f00",
+            "adc0258f-f7ed-4b79-bea8-bb072e2eea85",
+            "412b7918-9f9b-40e6-bce3-a357470a328a",
+            "fac859d9-f933-4ea9-943a-0ec61dec60ed",
+            "3d53633d-aaa3-45c7-8739-6b78ca999807",
+            "2ccbe7b8-fbb3-48e0-a644-ca3aba83f884",
+            "56a7d0f4-484b-4653-98ed-25210713e918",
+            "2c255b03-c485-4194-b797-bdc46cd11641",
+            "c382e28c-8998-4c2c-86c1-7c0afc7e9fdb"
+        ],
+        "decorators": [],
+        "options": {}
+    },
+    "6": {
+        "id": 6,
+        "class": "TakePhoto",
+        "name": "take photo on shutter-click event",
+        "options": {
+            "resolution": 2,
+            "onPhoto": [
+                "(error, imageUrl) => {",
+                "  ",
+                "// put the photo's URL on the notepad",
+                "notepad.imageUrl = imageUrl;",
+                "",
+                "}"
+            ],
+            "noDistortion": true
+        },
+        "asset-pack": "core",
+        "parent": "f615089e-9b01-4ee7-8c27-1e6ee68c462c",
+        "decorators": [
+            "273514a2-af90-4962-8e12-d3a53388d345"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "c382e28c-8998-4c2c-86c1-7c0afc7e9fdb": {
+        "id": "c382e28c-8998-4c2c-86c1-7c0afc7e9fdb",
+        "class": "ExecuteScript",
+        "name": "display the eye again",
+        "options": {
+            "exec": [
+                "() => {",
+                "  //remove the image from the screen",
+                "  jibo.face.stage.removeChild(notepad.photo); ",
+                "  ",
+                "  //force draw",
+                "  jibo.face.update(); ",
+                "  ",
+                "  //render only when dof values are dirty",
+                "  jibo.face.renderOnlyWhenDirty = true; ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "f615089e-9b01-4ee7-8c27-1e6ee68c462c": {
+        "id": "f615089e-9b01-4ee7-8c27-1e6ee68c462c",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "183e8b3c-372e-4a38-88be-caf4385eaec1",
+            6
+        ]
+    },
+    "183e8b3c-372e-4a38-88be-caf4385eaec1": {
+        "id": "183e8b3c-372e-4a38-88be-caf4385eaec1",
+        "class": "PlayAnimation",
+        "name": "play the camera animation",
+        "options": {
+            "animPath": "camera.keys",
+            "config": [
+                "(animation) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "f615089e-9b01-4ee7-8c27-1e6ee68c462c"
+    },
+    "273514a2-af90-4962-8e12-d3a53388d345": {
+        "id": "273514a2-af90-4962-8e12-d3a53388d345",
+        "class": "StartOnAnimEvent",
+        "name": "",
+        "options": {
+            "eventName": "shutter-click",
+            "onReceived": [
+                "(animFileName, payload) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "009578b6-abf7-448a-9181-e619c976e7d5": {
+        "id": "009578b6-abf7-448a-9181-e619c976e7d5",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "  //redraw every frame",
+                "  jibo.face.renderOnlyWhenDirty = false; ",
+                "  ",
+                "  // create new Pixi sprite",
+                "  notepad.photo = new PIXI.Sprite();",
+                "",
+                "  // set the texture of the sprite to the imageURL",
+                "  notepad.photo.texture = PIXI.Texture.fromImage(notepad.imageUrl);",
+                "",
+                "  // add the sprite to the stage",
+                "  jibo.face.stage.addChild(notepad.photo);",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "7fb7c0c7-f9ee-4b7b-bc67-e73fccea30a7": {
+        "id": "7fb7c0c7-f9ee-4b7b-bc67-e73fccea30a7",
+        "class": "LookAt",
+        "name": "find equation",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "  let jibo = require('jibo');",
+                "  ",
+                "  ",
+                "  let position = {x:.5, y:.0, z:.0};",
+                "",
+                "  ",
+                "",
+                "  return position;",
+                "}"
+            ],
+            "isContinuous": true,
+            "config": [
+                "(lookAt) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "decorators": [
+            "3418a6b5-ede9-4708-b8f9-22697d47c0c6"
+        ]
+    },
+    "8db6f060-1d44-481b-8df6-17b90470b7ea": {
+        "id": "8db6f060-1d44-481b-8df6-17b90470b7ea",
+        "class": "TextToSpeech",
+        "name": "Place equation",
+        "options": {
+            "words": "Place the equation in front of me!",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "3418a6b5-ede9-4708-b8f9-22697d47c0c6": {
+        "id": "3418a6b5-ede9-4708-b8f9-22697d47c0c6",
+        "class": "TimeoutSucceed",
+        "name": "",
+        "options": {
+            "timeout": 8000
+        },
+        "asset-pack": "core"
+    },
+    "1dca292c-eca9-4318-b1dd-c70d9cd85f20": {
+        "id": "1dca292c-eca9-4318-b1dd-c70d9cd85f20",
+        "class": "TextToSpeech",
+        "name": "",
+        "options": {
+            "words": "Is the equation centered?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "484b1902-60a8-453d-a77d-fcc2c395537d": {
+        "id": "484b1902-60a8-453d-a77d-fcc2c395537d",
+        "class": "Listen",
+        "name": "",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: false,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "rule": "affirmative.rule",
+            "onResult": [
+                "(listener) => {",
+                "  listener.on('cloud', (asrResult, speakerIds) => {",
+                "      console.log(asrResult);",
+                "      notepad.results = asrResult.NLParse",
+                "",
+                "    });",
+                "    ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "5c01ce89-830f-46d6-8a98-75c6766b5824": {
+        "id": "5c01ce89-830f-46d6-8a98-75c6766b5824",
+        "class": "TextToSpeechJs",
+        "name": "",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "  if(notepad.results.status === \"GOT-PARSE\") {",
+                "    let results = notepad.results.what;",
+                "    let text='';",
+                "    console.log(results);",
+                "    if(results == 'yes'){",
+                "    console.log('test');  ",
+                "    let text = 'Ok, solving now.';",
+                "    callback(text);",
+                "  }",
+                "    ",
+                "    else {",
+                "      callback('Ok, retaking picture.');  ",
+                "    }",
+                "  }",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "bd833512-f00f-4033-ab0f-0b728a888f00",
+        "decorators": [
+            "02e56ff9-8110-4ea9-9091-eeeefb14576c"
+        ]
+    },
+    "412b7918-9f9b-40e6-bce3-a357470a328a": {
+        "id": "412b7918-9f9b-40e6-bce3-a357470a328a",
+        "class": "TextToSpeech",
+        "name": "Place equation",
+        "options": {
+            "words": "Place the equation in front of me!\n",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "skipped": false
+    },
+    "c4012a39-e481-4cfc-882d-1168fa766a64": {
+        "id": "c4012a39-e481-4cfc-882d-1168fa766a64",
+        "class": "TakePhoto",
+        "name": "take photo on shutter-click event",
+        "options": {
+            "resolution": 2,
+            "onPhoto": [
+                "(error, imageUrl) => {",
+                "  ",
+                "// put the photo's URL on the notepad",
+                "notepad.imageUrl = imageUrl;",
+                "",
+                "}"
+            ],
+            "noDistortion": true
+        },
+        "asset-pack": "core",
+        "parent": "3d53633d-aaa3-45c7-8739-6b78ca999807",
+        "decorators": [
+            "932c4fc7-b618-4e1d-aee3-15d84f3e761d"
+        ]
+    },
+    "932c4fc7-b618-4e1d-aee3-15d84f3e761d": {
+        "id": "932c4fc7-b618-4e1d-aee3-15d84f3e761d",
+        "class": "StartOnAnimEvent",
+        "name": "",
+        "options": {
+            "eventName": "shutter-click",
+            "onReceived": [
+                "(animFileName, payload) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "02e56ff9-8110-4ea9-9091-eeeefb14576c": {
+        "id": "02e56ff9-8110-4ea9-9091-eeeefb14576c",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    let results = notepad.results.what;",
+                "    console.log(results);",
+                "    if (results == 'no'){",
+                "      console.log(results);",
+                "      return false;",
+                "    }",
+                "    else {",
+                "      return true;",
+                "    }",
+                "  ",
+                "  ",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "bd833512-f00f-4033-ab0f-0b728a888f00": {
+        "id": "bd833512-f00f-4033-ab0f-0b728a888f00",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "5c01ce89-830f-46d6-8a98-75c6766b5824"
+        ]
+    },
+    "fce4801b-b555-4ad4-8165-c3ba00d624d4": {
+        "id": "fce4801b-b555-4ad4-8165-c3ba00d624d4",
+        "class": "TimeoutJs",
+        "name": "",
+        "options": {
+            "getTime": [
+                "() => {",
+                "    return 3000;",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "2ccbe7b8-fbb3-48e0-a644-ca3aba83f884": {
+        "id": "2ccbe7b8-fbb3-48e0-a644-ca3aba83f884",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "  //redraw every frame",
+                "  jibo.face.renderOnlyWhenDirty = false; ",
+                "  ",
+                "  // create new Pixi sprite",
+                "  notepad.photo = new PIXI.Sprite();",
+                "  ",
+                "  // set the texture of the sprite to the imageURL",
+                "  notepad.photo.texture = PIXI.Texture.fromImage(notepad.imageUrl);",
+                "  console.log(notepad.imageUrl);",
+                "  // add the sprite to the stage",
+                "  jibo.face.stage.addChild(notepad.photo);",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "decorators": []
+    },
+    "56a7d0f4-484b-4653-98ed-25210713e918": {
+        "id": "56a7d0f4-484b-4653-98ed-25210713e918",
+        "class": "TimeoutJs",
+        "name": "",
+        "options": {
+            "getTime": [
+                "() => {",
+                "    return 4000;",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "77abc8d6-56ba-4b45-9209-734e856016c5": {
+        "id": "77abc8d6-56ba-4b45-9209-734e856016c5",
+        "class": "PlayAnimation",
+        "name": "play the camera animation",
+        "options": {
+            "animPath": "camera.keys",
+            "config": [
+                "(animation) => {",
+                "  ;",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "3d53633d-aaa3-45c7-8739-6b78ca999807"
+    },
+    "adc0258f-f7ed-4b79-bea8-bb072e2eea85": {
+        "id": "adc0258f-f7ed-4b79-bea8-bb072e2eea85",
+        "class": "ExecuteScript",
+        "name": "display the eye again",
+        "options": {
+            "exec": [
+                "() => {",
+                "  //remove the image from the screen",
+                "  jibo.face.stage.removeChild(notepad.photo); ",
+                "  ",
+                "  //force draw",
+                "  jibo.face.update(); ",
+                "  ",
+                "  //render only when dof values are dirty",
+                "  jibo.face.renderOnlyWhenDirty = true; ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "3d53633d-aaa3-45c7-8739-6b78ca999807": {
+        "id": "3d53633d-aaa3-45c7-8739-6b78ca999807",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "77abc8d6-56ba-4b45-9209-734e856016c5",
+            "c4012a39-e481-4cfc-882d-1168fa766a64"
+        ]
+    },
+    "fac859d9-f933-4ea9-943a-0ec61dec60ed": {
+        "id": "fac859d9-f933-4ea9-943a-0ec61dec60ed",
+        "class": "TimeoutJs",
+        "name": "",
+        "options": {
+            "getTime": [
+                "() => {",
+                "    return 2000;",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "2c255b03-c485-4194-b797-bdc46cd11641": {
+        "id": "2c255b03-c485-4194-b797-bdc46cd11641",
+        "class": "TextToSpeechJs",
+        "name": "",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "    callback('Working on the answer now.');",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    }
+}
